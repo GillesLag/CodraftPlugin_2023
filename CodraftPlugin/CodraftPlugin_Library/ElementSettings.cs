@@ -156,7 +156,7 @@ namespace CodraftPlugin_Library
             // Haal de juiste pipeType uit het document op basis van de systemName.
             PipeType pipeType = new FilteredElementCollector(doc)
                 .OfClass(typeof(PipeType))
-                .Where(x => x.Name.Split('%').First() == systemName)
+                .Where(x => x.Name.Split('%')[1].Split('$').First() == systemName)
                 .Cast<PipeType>()
                 .First();
 

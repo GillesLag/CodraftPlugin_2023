@@ -90,7 +90,7 @@ namespace CodraftPlugin_Updaters
                     }
 
                     // Get systemname from pipe
-                    string systemName = pipe.Name.Split('%').First();
+                    string systemName = pipe.Name.Split('%')[1].Split('$').First();
 
                     if (systemName.Contains("PI"))
                     {
@@ -144,7 +144,7 @@ namespace CodraftPlugin_Updaters
                 }
 
                 // Get the systemname from the pipe
-                string systemName = pipe.Name.Split('%').First();
+                string systemName = pipe.Name.Split('%')[1].Split('$').First();
 
                 // check if pipetype is changed.
                 if (data.IsChangeTriggered(pipeId, Element.GetChangeTypeParameter(new ElementId(BuiltInParameter.ELEM_TYPE_PARAM))))

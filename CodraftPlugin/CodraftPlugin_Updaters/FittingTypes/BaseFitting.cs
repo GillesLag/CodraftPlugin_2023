@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Plumbing;
 using Newtonsoft.Json.Linq;
 
 namespace CodraftPlugin_Updaters.FittingTypes
@@ -22,6 +23,7 @@ namespace CodraftPlugin_Updaters.FittingTypes
             this.Doc = doc;
             this.Id = fitting.Id;
             this.SystemType = fitting.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM).AsValueString();
+            this.SystemType = GetDatabaseName();
 
             this.TextFilesMapPath = textFilesMapPath;
             this.RememberMeFile = textFilesMapPath + "RememberMe_New.txt";
@@ -29,6 +31,24 @@ namespace CodraftPlugin_Updaters.FittingTypes
             this.ConnectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={databaseMapPath}{this.DatabaseFile}";
             this.DatabaseFilePath = databaseMapPath + this.DatabaseFile;
             this.parametersConfiguration = file;
+        }
+
+        private string GetDatabaseName()
+        {
+            ConnectorSet connecters = Fi.MEPModel.ConnectorManager.Connectors;
+
+            foreach (Connector connector in connecters)
+            {
+                foreach (Connector con in connector.AllRefs)
+                {
+                    if (con.Owner is Pipe pipe)
+                    {
+                        return pipe.Name.Substring(0, pipe.Name.IndexOf('%'));
+                    }
+                }
+            }
+
+            return string.Empty;
         }
     }
 }
