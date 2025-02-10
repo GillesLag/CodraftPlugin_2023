@@ -6,6 +6,7 @@ using CodraftPlugin_UIDatabaseWPF.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 
@@ -96,7 +97,7 @@ namespace CodraftPlugin_Updaters.FittingTypes
                 {
                     List<object> correctList = new List<object>();
 
-                    correctList.AddRange(parameterList.GetRange(0, 11).Select(x => (object)double.Parse(x)));
+                    correctList.AddRange(parameterList.GetRange(0, 11).Select(x => (object)double.Parse(x, new CultureInfo("nl-BE"))));
                     correctList.AddRange(parameterList.GetRange(11, 6));
 
                     return correctList;
