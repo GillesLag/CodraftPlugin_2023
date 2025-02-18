@@ -97,7 +97,17 @@ namespace CodraftPlugin_Updaters.FittingTypes
                 {
                     List<object> correctList = new List<object>();
 
-                    correctList.AddRange(parameterList.GetRange(0, 11).Select(x => (object)double.Parse(x, new CultureInfo("nl-BE"))));
+                    var currentCulture = CultureInfo.CurrentCulture;
+
+                    if (currentCulture.Name != "en-US")
+                    {
+                        var nlBE = new CultureInfo("nl-BE");
+                        nlBE.NumberFormat.NumberDecimalSeparator = ".";
+                        nlBE.NumberFormat.NumberGroupSeparator = ",";
+                        System.Threading.Thread.CurrentThread.CurrentCulture = nlBE;
+                    }
+
+                    correctList.AddRange(parameterList.GetRange(0, 11).Select(x => (object)double.Parse(x)));
                     correctList.AddRange(parameterList.GetRange(11, 6));
 
                     return correctList;
