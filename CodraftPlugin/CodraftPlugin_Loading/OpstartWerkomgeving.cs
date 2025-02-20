@@ -17,7 +17,7 @@ namespace CodraftPlugin_Loading
     [Transaction(TransactionMode.Manual)]
     public class OpstartWerkomgeving : IExternalCommand
     {
-        private const float feetToMm = 304.8f;
+        private const double feetToMm = 304.79999999999984760000000000008;
 
         private string materialQuery = "SELECT * FROM Materiaal";
         private string scheduleQuery = "SELECT * FROM Schedule";
@@ -209,6 +209,7 @@ namespace CodraftPlugin_Loading
                 {
                     if (indexSegmentAndSizelist == SegmentAndSizelist.Count)
                     {
+                        var test = (double)row[2] / feetToMm;
                         MEPSize lastMs = new MEPSize((double)row[2] / feetToMm, (double)row[3] / feetToMm, (double)row[4] / feetToMm, true, true);
                         mepSizes.Add(lastMs);
                     }
