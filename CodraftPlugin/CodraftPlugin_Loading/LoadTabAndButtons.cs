@@ -140,6 +140,18 @@ namespace CodraftPlugin_Loading
             PushButton holdCloudbutton = tools.AddItem(holdCloudData) as PushButton;
             holdCloudbutton.ToolTip = "Changes the hold clouds";
             holdCloudbutton.LargeImage = new BitmapImage(new Uri("pack://application:,,,/CodraftPlugin_Loading;component/Resources/holdCloud.png"));
+
+            //Create Tagupdater button
+            PushButtonData tagUpdaterData = new PushButtonData(
+                "tagUpdater",
+                "Tag Updater",
+                assemblyPath,
+                "CodraftPlugin_Loading.EnableDisableTagUpdater");
+
+            //add button to ribbon + tooltip and image
+            PushButton tagUpdaterbutton = updaters.AddItem(tagUpdaterData) as PushButton;
+            tagUpdaterbutton.ToolTip = "Rotate the tag to the model orientation after the tag is placed";
+            tagUpdaterbutton.LargeImage = new BitmapImage(new Uri("pack://application:,,,/CodraftPlugin_Loading;component/Resources/TagUpdater.png"));
         }
 
         public Result OnShutdown(UIControlledApplication application)
@@ -151,6 +163,8 @@ namespace CodraftPlugin_Loading
                 UpdaterManager.UnregisterFittingUpdater(application.ActiveAddInId);
                 UpdaterManager.UnregisterInsulationUpdater(application.ActiveAddInId);
                 UpdaterManager.UnregisterPipeAccessoryUpdater(application.ActiveAddInId);
+                UpdaterManager.UnregisterPipeAccessoryUpdater(application.ActiveAddInId);
+                UpdaterManager.UnregisterTagUpdater(application.ActiveAddInId);
 
                 return Result.Succeeded;
             }
@@ -171,6 +185,7 @@ namespace CodraftPlugin_Loading
                 UpdaterManager.RegisterFittingUpdater(application.ActiveAddInId);
                 UpdaterManager.RegisterInsulationUpdater(application.ActiveAddInId);
                 UpdaterManager.RegisterPipeAccessoryUpdater(application.ActiveAddInId);
+                UpdaterManager.RegisterTagUpdater(application.ActiveAddInId);
 
                 UpdaterManager.SetExecutionOrder(application.ActiveAddInId);
 

@@ -18,7 +18,7 @@ namespace CodraftPlugin_Loading
         /// <param name="uiapp"></param>
         public static void EnableDisable(IUpdater up, string updaterName, string pngFile, UIApplication uiapp)
         {
-            // Get list of all panels from the Gilles tab
+            // Get list of all panels from the Codraft tab
             List<RibbonPanel> panels = uiapp.GetRibbonPanels("Codraft");
             // Get the Updaters tab
             RibbonPanel updater = panels.Where(r => r.Name == "Updaters").First();

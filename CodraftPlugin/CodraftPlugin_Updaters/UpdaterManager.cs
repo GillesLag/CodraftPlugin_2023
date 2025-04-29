@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using CodraftPlugin_Loading;
 
 namespace CodraftPlugin_Updaters
 {
@@ -178,6 +179,29 @@ namespace CodraftPlugin_Updaters
 
             UpdaterRegistry.RemoveAllTriggers(id);
             UpdaterRegistry.UnregisterUpdater(id);
+        }
+
+        public static void RegisterTagUpdater(AddInId addinId)
+        {
+            TagUpdater tagUpdater = new TagUpdater(addinId);
+            UpdaterId id = tagUpdater.GetUpdaterId();
+
+            UpdaterRegistry.RegisterUpdater(tagUpdater);
+
+            ///TODO add triggers for all tags
+            UpdaterRegistry.AddTrigger(id, new ElementCategoryFilter(BuiltInCategory.OST_WallTags),
+                Element.GetChangeTypeElementAddition());
+
+            UpdaterRegistry.DisableUpdater(id);
+        }
+
+        public static void UnregisterTagUpdater(AddInId addinId)
+        {
+            TagUpdater tagUpdater = new TagUpdater(addinId);
+            UpdaterId tagId = tagUpdater.GetUpdaterId();
+
+            UpdaterRegistry.RemoveAllTriggers(tagId);
+            UpdaterRegistry.UnregisterUpdater(tagId);
         }
 
         /// <summary>
