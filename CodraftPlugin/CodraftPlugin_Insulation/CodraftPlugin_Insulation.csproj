@@ -1,15 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{043ED940-1CEC-40E5-90EE-2F2E8D06B422}</ProjectGuid>
+    <ProjectGuid>{72159AB5-5E3D-460C-8696-56890FCA9AA7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodraftPlugin_DAL</RootNamespace>
-    <AssemblyName>CodraftPlugin_DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <RootNamespace>CodraftPlugin_Insulation</RootNamespace>
+    <AssemblyName>CodraftPlugin_Insulation</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -31,19 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="ExcelDataReader, Version=3.7.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.3.7.0\lib\net462\ExcelDataReader.dll</HintPath>
     </Reference>
-    <Reference Include="RevitAPI, Version=20.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.7.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.7.0\lib\net462\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\RevitAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="RevitAPIUI, Version=20.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,12 +56,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileOperations.cs" />
-    <Compile Include="FileOperationsPipeAccessories.cs" />
+    <Compile Include="AddPipeInsulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodraftPlugin_Library\CodraftPlugin_Library.csproj">
+      <Project>{68e31e0b-9a82-4630-9aac-370244c7bf7d}</Project>
+      <Name>CodraftPlugin_Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
